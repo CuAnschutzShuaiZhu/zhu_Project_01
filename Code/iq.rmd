@@ -1,0 +1,25 @@
+## First attempt
+
+```{r}
+library(knitr)
+df <- read.csv('../DataRaw/lead-iq-01.csv')
+df <- df[df$IQ<200,]
+boxplot(df$IQ~df$Smelter,main = 'Boxplot of IQ',
+        xlab = 'Distance from lead smelter',
+        ylab = 'IQ')
+```
+
+```{r}
+summary_table <- function(df){
+  table <- rbind(summary(df[df$Smelter=='Far',]$IQ),
+        summary(df[df$Smelter=='Near',]$IQ))
+  colnames(table) <- c('Min', '1st_Qu', 'Median',	'Mean',	'3rd_Qu',	'Max') 
+  rownames(table) <- c('Far','Near')
+  return (kable(table, format = 'html',
+                caption = 'Summary table of IQ value on Far from lead smelter and Near lead smelter')
+          )
+}
+summary_table(df)
+```
+
+I see there is a outlier and so I filter IQ by less than 200 since regular IQ is just less than 140. From the box plots, It seems that live far from the lead smelter has a trend of high IQ score.
