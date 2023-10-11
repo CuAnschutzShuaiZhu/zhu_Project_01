@@ -7,7 +7,7 @@
 ```{r}
 library(knitr)
 df <- read.csv('../DataRaw/lead-iq-01.csv')
-df <- df[df$IQ<200,]
+df[df$IQ==999,2] <- 99 
 boxplot(df$IQ~df$Smelter,main = 'Boxplot of IQ',
         xlab = 'Distance from lead smelter',
         ylab = 'IQ')
@@ -26,4 +26,4 @@ summary_table <- function(df){
 summary_table(df)
 ```
 
-I see there is a outlier and so I filter IQ by less than 200 since regular IQ is just less than 140. From the box plots, It seems that live far from the lead smelter has a trend of high IQ score.
+I replaced the IQ 999 as 99. From the box plots, Four outlier this time, But my conclusion doesn't change. Living far from the lead smelter has a trend of high IQ score.
